@@ -1,5 +1,13 @@
 var Comment = new React.createClass({
 
+	getInitialState : function(){
+	    return {
+	    	linethrough : false
+		}
+	},
+	toggleApproveClick : function(){
+		this.setState({linethrough : !this.state.linethrough})
+	},
 	render : function(){
 		return (
 			<li className="list-group-item">
@@ -9,7 +17,7 @@ var Comment = new React.createClass({
 					<div className="col-xs-10 col-md-11">
 						<div>
 							<a href="http://www.jquery2dotnet.com/2013/10/google-style-login-page-desing-usign.html">
-								{this.props.title}</a>
+								<span style={ this.state.linethrough ? {'text-decoration' : 'line-through'} : {'text-decoration' : 'none'}  }>{this.props.title}</span></a>
 							<div className="mic-info">
 								By: <a href="#">{this.props.author}</a> on {this.props.date}
 							</div>
@@ -21,7 +29,7 @@ var Comment = new React.createClass({
 							<button type="button" className="btn btn-primary btn-xs" title="Edit">
 								<span className="glyphicon glyphicon-pencil"></span>
 							</button>
-							<button type="button" className="btn btn-success btn-xs" title="Approved">
+							<button onClick={this.toggleApproveClick} type="button" className="btn btn-success btn-xs" title="Approved">
 								<span className="glyphicon glyphicon-ok"></span>
 							</button>
 							<button onClick={ () => {this.props.handleDelete(this.props.title)} } type="button" className="btn btn-danger btn-xs" title="Delete">
